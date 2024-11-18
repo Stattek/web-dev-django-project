@@ -4,9 +4,6 @@
 # ignore compiled python files
 *.pyc
 
-# ignore sqlite
-*.sqlite3
-
 # ignore pycache folders
 __pycache__/
 
