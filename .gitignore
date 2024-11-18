@@ -9,3 +9,7 @@
 
 # ignore pycache folders
 __pycache__/
+
+#ignore IDE folders
+.vscode/
+.idea/
