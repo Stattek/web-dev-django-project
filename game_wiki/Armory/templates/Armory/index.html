@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armory</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-HEd4TjGokgke7+hdIMk6dOgz2KbZZfTxssLR2LMiC+I/BhiCfNDZoT6uY4GCRZqs" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        h1 {
+            margin-top: 20px;
+            color: #343a40;
+        }
+        table {
+            margin-top: 30px;
+        }
+        .table-header {
+            background-color: #6c757d;
+            color: white;
+            font-size: 1.1em;
+        }
+        .description {
+            font-style: italic;
+            color: #6c757d;
+        }
+        .power {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Armory Inventory</h1>
+        <p class="text-center description">Explore the legendary weapons and armor of the realm. Each item is crafted with precision and a story of its own.</p>
+
+        <!-- Weapons Table -->
+        <h2 class="text-center">Weapons</h2>
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-header">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Power</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for weapon in weapons %}
+                <tr>
+                    <td>{{ weapon.name }}</td>
+                    <td class="description">{{ weapon.description }}</td>
+                    <td class="power">{{ weapon.attack_power }}</td>
+                    <td>{{ weapon.weapon_type }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Armor Table -->
+        <h2 class="text-center">Armor</h2>
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-header">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Power</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for armor in armors %}
+                <tr>
+                    <td>{{ armor.name }}</td>
+                    <td class="description">{{ armor.description }}</td>
+                    <td class="power">{{ armor.defense_power }}</td>
+                    <td>{{ armor.armor_type }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
