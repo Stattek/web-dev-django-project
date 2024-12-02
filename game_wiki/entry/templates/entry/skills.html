@@ -1,0 +1,49 @@
+{% extends "base_template.html" %}
+{% load static %}
+
+{% block title_block %}
+<title>Skills</title>
+{% endblock %}
+
+{% block body_block %}
+    {% comment %} If I want to include some ways to navigate around the website
+    <a href="{% url 'polls:index' %}">Go to Skill Wiki Page</a>
+    <br>
+    <a href="{% url 'polls:inventory_add' %}">Add Item to Inventory</a> 
+    {% endcomment %}
+    <h1>Skill List</h1>
+    {% comment %} Table with all items {% endcomment %}
+    {% if skills %}
+        <table>
+            <tr>
+                <th>Icon</th>
+                <th>Skill Name</th>
+                <th>Type</th>
+                <th>Element</th>
+                <th>Casting Time (seconds)</th>
+            </tr>
+            {% for skill in skills %}
+                <tr>
+                    <td>
+                        <img src="{{ skill.icon.url }}" style="height:50px; width:50px">
+                    </td>
+                    <td>
+                        {% comment %} TODO: make the item name a link to the wiki page for it {% endcomment %}
+                        <p style="background:black;color:white">{{ skill.name }}</p>
+                    </td>
+                    <td>
+                        <p style="background:black;color:white">{{ skill.type }}</p>
+                    </td>
+                    <td>
+                        <p style="background:black;color:white">{{ skill.element }}</p>
+                    </td>
+                    <td>
+                        <p style="background:black;color:white">{{ skill.casting_time }}</p>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p style="background:red; color:white;">No Skills</p>
+    {% endif %}
+{% endblock %}

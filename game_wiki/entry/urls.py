@@ -5,6 +5,7 @@ from . import views
 
 app_name = "entry"
 urlpatterns = [
-    path("", views.table_of_contents, name="table_of_contents"),
+    path("", views.skills_page, name="skills_page"),
     path("<int:page_id>", views.wiki_page, name="wiki_page"),
 ]
+
