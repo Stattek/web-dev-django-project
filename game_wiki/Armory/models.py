@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Weapon(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField(default="No description available")
+    description = models.TextField(default="Add description")
     attack_power = models.IntegerField()
     weapon_type = models.CharField(max_length=50)  # Example: 'Sword', 'Bow', etc.
 
@@ -13,7 +13,7 @@ class Weapon(models.Model):
 
 class Armor(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField(default="No description available")
+    description = models.TextField(default="Add description")
     defense_power = models.IntegerField()
     armor_type = models.CharField(max_length=50)  # Example: 'Helmet', 'Chestplate', etc.
 
