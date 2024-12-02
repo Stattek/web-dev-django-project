@@ -1,0 +1,7 @@
+/* Include any css that we want to use for styling our pages */
+table,
+th,
+td,
+tr {
+    border: 1px solid black;
+}
