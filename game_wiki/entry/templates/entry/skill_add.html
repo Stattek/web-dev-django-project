@@ -1,0 +1,38 @@
+{% extends "base_template.html" %}
+{% load static %}
+
+{% block title_block %}
+<title>Add Skill</title>
+{% endblock %}
+
+{% block body_block %}
+    <a href="{% url 'entry:skills_page' %}">Go Back To Skills</a>
+    <br>
+
+    <h1>Inventory</h1>
+    <br>
+    <h2>Add a skill</h2>
+    <form action="{% url 'entry:process_skill_add' %}" method="POST">
+        {% comment %} If we have an error message, print {% endcomment %}
+        {% if error_message %}
+            {{ error_message }}<br>
+        {% endif %}
+
+        <label for="skill_name">Skill Name:</label>
+        <input type="text" name="skill_name_input" id="skill_name" value="{{ skill.name }}" required>
+        <br>
+        <label for="skill_type">Skill type:</label>
+        <input type="text" name="skill_type_input" id="skill_type" value="{{ skill.type }}" required>
+        <br>
+        <label for="skill_element">Skill type:</label>
+        <input type="number" min=0 name="skill_element_input" id="skill_element" value="{{ skill.element }}" required>
+        <br>
+        <label for="skill_casting_time">Seconds to Cast:</label>
+        <input type="number" min=0 step=".01" name="skill_casting_time_input" id="skill_casting_time" value="{{ skill.casting_time }}" required>
+        <br>
+
+        {% comment %} Submit button {% endcomment %}
+        <input type="submit" value="Add Item">
+    </form>
+
+{% endblock %}
