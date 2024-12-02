@@ -34,10 +34,10 @@ def add_armor(request):
 def remove_weapon(request, weapon_id):
     weapon = get_object_or_404(Weapon, id=weapon_id)
     weapon.delete()
-    return redirect('Armory:weapon_list')  # Redirect to the list page after deletion
+    return redirect('Armory:index')  # Redirect to the list page after deletion
 
 # Remove Armor
 def remove_armor(request, armor_id):
     armor = get_object_or_404(Armor, id=armor_id)
     armor.delete()
-    return redirect('Armory:armor_list')  # Redirect to the list page after deletion
+    return redirect('Armory:index')  # Redirect to the list page after deletion
