@@ -23,6 +23,7 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("entry/", include("entry.urls")),
+    path('armory/', include('Armory.urls'))
 ]
 
 if settings.DEBUG:
