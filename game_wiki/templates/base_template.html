@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+{% comment %} This is the base template that we can base other pages on {% endcomment %}
+
+<head>
+    <meta charset="UTF-8">
+    {% block title_block %}{% endblock %}
+    <link href="{% static 'base_style.css' %}" rel="stylesheet">
+</head>
+<body>
+    {% block body_block %}{% endblock %}
+</body>
+</html>
