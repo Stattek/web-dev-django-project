@@ -1,121 +1,11 @@
+{% extends "base_template.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{% block title_block %}
     <title>Armory</title>
-    <link href="{% static 'bootstrap.css' %}" rel="stylesheet">
-    <script src="{% static 'bootstrap.bundle.js' %}"></script>
-    <style>
-        /* Background and general styling */
-        body {
-            background: linear-gradient(to bottom, #1a1a1a, #333333);
-            color: #f5f5f5;
-            font-family: 'Cinzel', serif;
-        }
+{% endblock %}
 
-        h1, h2 {
-            font-family: 'Cinzel Decorative', serif;
-        }
-
-        /* Welcome message styling */
-        .welcome-message {
-            margin-top: 160px;
-            font-size: 2.4em;
-            color: #f5f5f5;
-            text-align: center;
-            font-family: 'Cinzel Decorative', serif;
-            text-shadow: 2px 2px #000000;
-        }
-
-        /* Dropdown styling */
-        .dropdown-menu {
-            background-color: #343a40;
-            border: none;
-        }
-
-        .dropdown-item {
-            color: #f8f9fa;
-            font-weight: bold;
-        }
-
-        .dropdown-item:hover {
-            background-color: #495057;
-            color: #ffffff;
-        }
-
-        .btn-primary {
-        background-color: #6c757d;
-        border: none;
-        font-size: 1.1em; 
-        padding: 14px 28px; 
-        border-radius: 8px; 
-        }
-
-        .btn-primary:hover {
-        background-color: #495057;
-        transform: scale(1.05); 
-        transition: transform 0.2s ease-in-out;
-        }
-
-        /* Table styling */
-        .table {
-            margin-top: 30px;
-            background-color: #222222;
-        }
-
-        .table-header {
-            background-color: #444444;
-            color: #f8f9fa;
-            font-size: 1.2em;
-        }
-
-        .description {
-            font-style: italic;
-            color: #c0c0c0;
-        }
-
-        .power {
-            text-align: center;
-            font-weight: bold;
-        }
-
-        /* Buttons */
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #f8f9fa;
-            background-color: #6c757d;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .button:hover {
-            background-color: #495057;
-        }
-
-        /* Category section visibility */
-        .category-section {
-            display: none;
-        }
-
-        /* Additional enhancements */
-        .container {
-            margin-top: 20px;
-        }
-
-        .description-section {
-            font-size: 1.2em;
-            margin-top: 20px;
-            text-align: center;
-            color: #cfcfcf;
-        }
-    </style>
-</head>
-<body>
+{% block body_block%}
     <div class="container">
         <!-- Main title -->
         <h1 class="text-center">Armory Inventory</h1>
@@ -139,88 +29,87 @@
             </ul>
         </div>
 
-<!-- Weapons Table Section -->
-<div id="weapons" class="category-section">
-    <h2 class="text-center">Weapons</h2>
-    <a href="{% url 'Armory:add_weapon' %}" class="button">Add Weapon</a>
-    <table class="table table-bordered table-striped table-hover">
-        <thead class="table-header">
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Power</th>
-                <th>Type</th>
-                <th>Actions</th> <!-- Add Actions column -->
-            </tr>
-        </thead>
-        <tbody>
-            {% for weapon in weapons %}
-            <tr>
-                <td>{{ weapon.name }}</td>
-                <td class="description">{{ weapon.description }}</td>
-                <td class="power">{{ weapon.attack_power }}</td>
-                <td>{{ weapon.weapon_type }}</td>
-                <td>
-                    <!-- Remove Button with Confirmation -->
-                    <form action="{% url 'Armory:remove_weapon' weapon.id %}" method="POST" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this weapon?');">Remove</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+        <!-- Weapons Table Section -->
+        <div id="weapons" class="category-section">
+            <h2 class="text-center">Weapons</h2>
+            <a href="{% url 'Armory:add_weapon' %}" class="button">Add Weapon</a>
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Power</th>
+                        <th>Type</th>
+                        <th>Actions</th> <!-- Add Actions column -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for weapon in weapons %}
+                    <tr>
+                        <td>{{ weapon.name }}</td>
+                        <td class="description">{{ weapon.description }}</td>
+                        <td class="power">{{ weapon.attack_power }}</td>
+                        <td>{{ weapon.weapon_type }}</td>
+                        <td>
+                            <!-- Remove Button with Confirmation -->
+                            <form action="{% url 'Armory:remove_weapon' weapon.id %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this weapon?');">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-<!-- Armor Table Section -->
-<div id="armor" class="category-section">
-    <h2 class="text-center">Armor</h2>
-    <a href="{% url 'Armory:add_armor' %}" class="button">Add Armor</a>
-    <table class="table table-bordered table-striped table-hover">
-        <thead class="table-header">
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Power</th>
-                <th>Type</th>
-                <th>Actions</th> <!-- Add Actions column -->
-            </tr>
-        </thead>
-        <tbody>
-            {% for armor in armors %}
-            <tr>
-                <td>{{ armor.name }}</td>
-                <td class="description">{{ armor.description }}</td>
-                <td class="power">{{ armor.defense_power }}</td>
-                <td>{{ armor.armor_type }}</td>
-                <td>
-                    <!-- Remove Button with Confirmation -->
-                    <form action="{% url 'Armory:remove_armor' armor.id %}" method="POST" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this armor?');">Remove</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+        <!-- JavaScript -->    <!-- Armor Table Section -->
+        <div id="armor" class="category-section">
+            <h2 class="text-center">Armor</h2>
+            <a href="{% url 'Armory:add_armor' %}" class="button">Add Armor</a>
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Power</th>
+                        <th>Type</th>
+                        <th>Actions</th> <!-- Add Actions column -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for armor in armors %}
+                    <tr>
+                        <td>{{ armor.name }}</td>
+                        <td class="description">{{ armor.description }}</td>
+                        <td class="power">{{ armor.defense_power }}</td>
+                        <td>{{ armor.armor_type }}</td>
+                        <td>
+                            <!-- Remove Button with Confirmation -->
+                            <form action="{% url 'Armory:remove_armor' armor.id %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this armor?');">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <!-- JavaScript -->
-    <script>
-        function showCategory(category) {
-            var sections = document.querySelectorAll('.category-section');
-            sections.forEach(section => section.style.display = 'none');
-            document.getElementById(category).style.display = 'block';
-            document.getElementById('welcome-message').style.display = 'none';
-            var dropdownMenu = document.getElementById('dropdownMenuButton');
-            new bootstrap.Dropdown(dropdownMenu).hide();
-        }
+        <script>
+            function showCategory(category) {
+                var sections = document.querySelectorAll('.category-section');
+                sections.forEach(section => section.style.display = 'none');
+                document.getElementById(category).style.display = 'block';
+                document.getElementById('welcome-message').style.display = 'none';
+                var dropdownMenu = document.getElementById('dropdownMenuButton');
+                new bootstrap.Dropdown(dropdownMenu).hide();
+            }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('welcome-message').style.display = 'block';
-        });
-    </script>
-</body>
-</html>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('welcome-message').style.display = 'block';
+            });
+        </script>
+    </div>
+{% endblock %}
