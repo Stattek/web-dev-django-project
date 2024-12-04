@@ -1,51 +1,78 @@
-{% extends "base_template.html" %}
+{% extends 'base_template.html' %}
 {% load static %}
 
 {% block title_block %}
-<title>Skills</title>
+  <title>Skills</title>
 {% endblock %}
 
 {% block body_block %}
-    <div class="container">
-        {% comment %} If I want to include some ways to navigate around the website
-        <a href="{% url 'polls:index' %}">Go to Skill Wiki Page</a>
-        <br>
-        <a href="{% url 'polls:inventory_add' %}">Add Item to Inventory</a> 
-        {% endcomment %}
-        <h1>Skill List</h1>
-        {% comment %} Table with all items {% endcomment %}
-        {% if skills %}
-            <table>
-                <tr>
-                    <th>Icon</th>
-                    <th>Skill Name</th>
-                    <th>Type</th>
-                    <th>Element</th>
-                    <th>Casting Time (seconds)</th>
-                </tr>
-                {% for skill in skills %}
-                    <tr>
-                        <td>
-                            <img src="{{ skill.icon.url }}" style="height:50px; width:50px">
-                        </td>
-                        <td>
-                            {% comment %} TODO: make the item name a link to the wiki page for it {% endcomment %}
-                            <p style="background:black;color:white">{{ skill.name }}</p>
-                        </td>
-                        <td>
-                            <p style="background:black;color:white">{{ skill.type }}</p>
-                        </td>
-                        <td>
-                            <p style="background:black;color:white">{{ skill.element }}</p>
-                        </td>
-                        <td>
-                            <p style="background:black;color:white">{{ skill.casting_time }}</p>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <p style="background:red; color:white;">No Skills</p>
-        {% endif %}
-    </div>
+  <div class="container">
+    {% comment %}If I want to include some ways to navigate around the website
+    <a href="{% url 'polls:index' %}">Go to Skill Wiki Page</a>
+    <br />
+    <a href="{% url 'polls:inventory_add' %}">Add Item to Inventory</a>
+    {% endcomment %}
+    <h1 class="text-center">Skill List</h1>
+    <p class="description-section">A table containing all skills in the game.</p>
+    <br /><br />
+    <a href="{% url 'entry:main_page' %}" class="btn btn-primary" role="button">Go Back</a>
+    <br /><br /><br /><br />
+
+    <a href="{% url 'entry:add_skill' %}" class="btn btn-primary" role="button">Add Skill</a>
+    <br /><br />
+
+    {% comment %}Table with all items{% endcomment %}
+    {% if skills %}
+      <div data-bs-theme="dark">
+
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Icon</th>
+              <th scope="col">Skill Name</th>
+              <th scope="col">Type</th>
+              <th scope="col">Element</th>
+              <th scope="col">Casting Time (seconds)</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for skill in skills %}
+              <tr>
+                <td>
+                  <img src="{{ skill.icon.url }}" style="height:50px; width:50px" />
+                </td>
+                <td>
+                  {% comment %}TODO: make the item name a link to the wiki page for it{% endcomment %}
+                  <p>
+                    <a href = {% url 'entry:wiki_page' skill.wiki_page.id %}>{{ skill.name }}</a>
+                  </p>
+                </td>
+                <td>
+                  <p>{{ skill.type }}</p>
+                </td>
+                <td>
+                  <p>{{ skill.element }}</p>
+                </td>
+                <td>
+                  <p>{{ skill.casting_time }}</p>
+                </td>
+                <td>
+                  <!-- Remove Button with Confirmation -->
+                  <form action="{% url 'entry:delete_skill' skill.id %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this skill?');">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div>
+        <p class="text-danger">No Skills</p>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

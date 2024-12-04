@@ -1,0 +1,44 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+<!-- templates/addarmor.html -->
+{% block title_block %}
+  <title>Add Skill</title>
+{% endblock %}
+
+{% block body_block %}
+  <div class="container">
+    <h1 class="text-center">Add New Skill</h1>
+    <a href="{% url 'entry:skills_page' %}" class="btn btn-primary" role="button">Go Back</a>
+    <br /><br />
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="name" class="form-label">Skill Name</label>
+        {{ form.name }}
+      </div>
+      <div class="mb-3">
+        <label for="icon" class="form-label">Skill Icon (1:1 aspect ratio please)</label>
+        {{ form.icon }}
+      </div>
+      <div class="mb-3">
+        <label for="type" class="form-label">Type</label>
+        {{ form.type }}
+      </div>
+      <div class="mb-3">
+        <label for="element" class="form-label">Element</label>
+        {{ form.element }}
+      </div>
+      <div class="mb-3">
+        <label for="casting_time" class="form-label">Casting Time</label>
+        {{ form.casting_time }}
+      </div>
+      <div class="mb-3">
+        <label for="wiki_page" class="form-label">Wiki Page</label>
+        {{ form.wiki_page }}
+      </div>
+      <button type="submit" class="btn btn-primary">Add Skill</button>
+    </form>
+  </div>
+{% endblock %}

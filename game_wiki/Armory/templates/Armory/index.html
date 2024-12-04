@@ -1,115 +1,119 @@
-{% extends "base_template.html" %}
+{% extends 'base_template.html' %}
 {% load static %}
 
 {% block title_block %}
-    <title>Armory</title>
+  <title>Armory</title>
 {% endblock %}
 
-{% block body_block%}
-    <div class="container">
-        <!-- Main title -->
-        <h1 class="text-center">Armory Inventory</h1>
-        <p class="description-section">The vault of legends lies before you. Each item holds untold tales of valor and mystery. Choose wisely.</p>
+{% block body_block %}
+  <div class="container">
+    <!-- Main title -->
+    <h1 class="text-center">Armory Inventory</h1>
+    <p class="description-section">The vault of legends lies before you. Each item holds untold tales of valor and mystery. Choose wisely.</p>
+    <br /><br />
 
-        <!-- Welcome Message -->
-        <div id="welcome-message" class="welcome-message">
-            Welcome, brave adventurer, to the <b>Armory of Eternity</b>!  
-            Delve into a realm of mythical weapons and enchanted armor.  
-            Select your category to unveil the treasures within.
-        </div>
+    <a href="{% url 'entry:main_page' %}" class="btn btn-primary" role="button">Go Back</a>
+    <br /><br />
 
-        <!-- Dropdown Menu -->
-        <div class="dropdown text-center mb-4">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Select Category
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#" onclick="showCategory('weapons')">Weapons</a></li>
-                <li><a class="dropdown-item" href="#" onclick="showCategory('armor')">Armor</a></li>
-            </ul>
-        </div>
-
-        <!-- Weapons Table Section -->
-        <div id="weapons" class="category-section">
-            <h2 class="text-center">Weapons</h2>
-            <a href="{% url 'Armory:add_weapon' %}" class="button">Add Weapon</a>
-            <table class="table table-bordered table-striped table-hover">
-                <thead class="table-header">
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Power</th>
-                        <th>Type</th>
-                        <th>Actions</th> <!-- Add Actions column -->
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for weapon in weapons %}
-                    <tr>
-                        <td>{{ weapon.name }}</td>
-                        <td class="description">{{ weapon.description }}</td>
-                        <td class="power">{{ weapon.attack_power }}</td>
-                        <td>{{ weapon.weapon_type }}</td>
-                        <td>
-                            <!-- Remove Button with Confirmation -->
-                            <form action="{% url 'Armory:remove_weapon' weapon.id %}" method="POST" style="display:inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this weapon?');">Remove</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <!-- JavaScript -->    <!-- Armor Table Section -->
-        <div id="armor" class="category-section">
-            <h2 class="text-center">Armor</h2>
-            <a href="{% url 'Armory:add_armor' %}" class="button">Add Armor</a>
-            <table class="table table-bordered table-striped table-hover">
-                <thead class="table-header">
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Power</th>
-                        <th>Type</th>
-                        <th>Actions</th> <!-- Add Actions column -->
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for armor in armors %}
-                    <tr>
-                        <td>{{ armor.name }}</td>
-                        <td class="description">{{ armor.description }}</td>
-                        <td class="power">{{ armor.defense_power }}</td>
-                        <td>{{ armor.armor_type }}</td>
-                        <td>
-                            <!-- Remove Button with Confirmation -->
-                            <form action="{% url 'Armory:remove_armor' armor.id %}" method="POST" style="display:inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this armor?');">Remove</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <script>
-            function showCategory(category) {
-                var sections = document.querySelectorAll('.category-section');
-                sections.forEach(section => section.style.display = 'none');
-                document.getElementById(category).style.display = 'block';
-                document.getElementById('welcome-message').style.display = 'none';
-                var dropdownMenu = document.getElementById('dropdownMenuButton');
-                new bootstrap.Dropdown(dropdownMenu).hide();
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-                document.getElementById('welcome-message').style.display = 'block';
-            });
-        </script>
+    <!-- Welcome Message -->
+    <div id="welcome-message" class="welcome-message">
+      Welcome, brave adventurer, to the <b>Armory of Eternity</b>! Delve into a realm of mythical weapons and enchanted armor. Select your category to unveil the treasures within.
     </div>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown text-center mb-4">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Select Category</button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li>
+          <a class="dropdown-item" href="#" onclick="showCategory('weapons')">Weapons</a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="#" onclick="showCategory('armor')">Armor</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Weapons Table Section -->
+    <div id="weapons" class="category-section" data-bs-theme="dark">
+      <h2 class="text-center">Weapons</h2>
+      <a href="{% url 'Armory:add_weapon' %}" class="button">Add Weapon</a>
+      <table class="table table-bordered table-striped table-hover">
+        <thead class="table-header">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Power</th>
+            <th>Type</th>
+            <th>Actions</th> <!-- Add Actions column -->
+          </tr>
+        </thead>
+        <tbody>
+          {% for weapon in weapons %}
+            <tr>
+              <td>{{ weapon.name }}</td>
+              <td class="description">{{ weapon.description }}</td>
+              <td class="power">{{ weapon.attack_power }}</td>
+              <td>{{ weapon.weapon_type }}</td>
+              <td>
+                <!-- Remove Button with Confirmation -->
+                <form action="{% url 'Armory:remove_weapon' weapon.id %}" method="POST" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this weapon?');">Remove</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- JavaScript --> <!-- Armor Table Section -->
+    <div id="armor" class="category-section" data-bs-theme="dark">
+      <h2 class="text-center">Armor</h2>
+      <a href="{% url 'Armory:add_armor' %}" class="button">Add Armor</a>
+      <table class="table table-bordered table-striped table-hover">
+        <thead class="table-header">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Power</th>
+            <th>Type</th>
+            <th>Actions</th> <!-- Add Actions column -->
+          </tr>
+        </thead>
+        <tbody>
+          {% for armor in armors %}
+            <tr>
+              <td>{{ armor.name }}</td>
+              <td class="description">{{ armor.description }}</td>
+              <td class="power">{{ armor.defense_power }}</td>
+              <td>{{ armor.armor_type }}</td>
+              <td>
+                <!-- Remove Button with Confirmation -->
+                <form action="{% url 'Armory:remove_armor' armor.id %}" method="POST" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this armor?');">Remove</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function showCategory(category) {
+        var sections = document.querySelectorAll('.category-section')
+        sections.forEach((section) => (section.style.display = 'none'))
+        document.getElementById(category).style.display = 'block'
+        document.getElementById('welcome-message').style.display = 'none'
+        var dropdownMenu = document.getElementById('dropdownMenuButton')
+        new bootstrap.Dropdown(dropdownMenu).hide()
+      }
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('welcome-message').style.display = 'block'
+      })
+    </script>
+  </div>
 {% endblock %}

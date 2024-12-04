@@ -1,0 +1,29 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{% block title_block %}
+  <title>Armory</title>
+{% endblock %}
+
+{% block body_block %}
+  <div class="container">
+    <!-- Main title -->
+    <h1 class="text-center">Game Wiki</h1>
+    <p class="description-section">This is the main page of the Game Wiki.</p>
+
+    <div id="welcome-message" class="welcome-message">Choose a page to go to below:</div>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown text-center mb-4">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Select Page</button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li>
+          <a class="dropdown-item" href="{% url 'entry:skills_page' %}">Skills</a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="{% url 'Armory:index' %}">Armory</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}

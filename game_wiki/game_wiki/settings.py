@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "entry.apps.EntryConfig",
-    "Armory",
+    "Armory.apps.ArmoryConfig",
 ]
 
 MIDDLEWARE = [
