@@ -14,7 +14,7 @@ class WikiPage(models.Model):
 
 class Skill(models.Model):
     name = models.CharField(max_length=200)
-    icon = models.ImageField(upload_to="img", default="default_image.jpg")
+    icon = models.ImageField(upload_to="img", default="static/default_image.jpg")
     type = models.CharField(max_length=200)  # if it is passive or active
     element = models.CharField(max_length=200)
     casting_time = models.DecimalField(
